@@ -1,4 +1,4 @@
-
+sudo su
 #oferta y ocupacion de plazas
 wget -O oferPlazas19.csv https://zaguan.unizar.es/record/76878/files/CSV.csv
 wget -O oferPlazas18.csv https://zaguan.unizar.es/record/70115/files/CSV.csv
@@ -23,3 +23,5 @@ wget -O acuerdosMov17.csv https://zaguan.unizar.es/record/70141/files/CSV.csv
 wget -O alumnEgres19.csv https://zaguan.unizar.es/record/83979/files/CSV.csv
 wget -O alumnEgres18.csv https://zaguan.unizar.es/record/70130/files/CSV.csv
 wget -O alumnEgres17.csv https://zaguan.unizar.es/record/70131/files/CSV.csv
+sudo mv alumnEgres* acuerdosMov* notasCorte* resulTitu* oferPlazas* /var/lib/mysql-files
+
