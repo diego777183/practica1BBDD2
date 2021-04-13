@@ -1,0 +1,66 @@
+estudios(nom_estudio:dom_nom_estudio, tipo_estudio:dom_tipo_estudio)
+CP {nom_estudio}
+CAj {id_tipo_estudio}
+VNN{id_tipo_estudio}
+
+tipo_estudio(id_tipo_estudio:dom_tipo_estudio, nom_tipo_estudio:dom_nom_tipo_estudio)
+CP {id_tipo_estudio}
+VNN{nom_tipo_estudio}
+
+tipo_centro(id_tipo_centro:dom_id_tipo_centro, nom_tipo_centro:dom_nom_tipo_centro)
+CP {id_tipo_centro}
+VNN{nom_tipo_centro}
+
+universidad(id_nombe_universidad:dom_id_nombre_universidad, nombre_universidad:dom_nombre_universdidad)
+CP {id_nombe_universidad}
+VNN {nombre_universidad}
+
+localidad(id_localidad: dom_id_localidad, nom_localidad:dom_nom_localidad)
+CP {id_localidad}
+VNN{nom_localidad}
+
+centro(nom_centro:dom_nom_centro, alumnos:dom_alumnos, id_nombe_universidad:dom_id_nombre_universidad)
+CP {nom_centro}
+CAj {id_tipo_centro} -> tipo_centro
+CAj {id_localidad} -> localidad
+CAj {id_nombe_universidad} -> universidad
+VNN{alumnos, id_tipo_centro, id_localidad}
+
+acuerdosMovilidad(curso_academico:dom_curso_academico, universidad_acuerdo:dom_universidad_acuerdo, plazas_ofertadas_alumnos:dom_plazas_ofertadas_alumnos
+plazas_asignadas_alumnos:dom_plazas_asignadas_alumnos, pais_universidad_acuerdo:dom_pais_universidad_acuerdo, nombre_idioma_nivel_movilidad:dom_nombre_idioma_nivel_movilidad)
+CP {nom_centro_p1, nom_centro_p2}
+CAj {nom_centro_p1} -> centro
+CAj {nom_centro_p2} -> centro
+VNN{universidad_acuerdo, plazas_ofertadas_alumnos, plazas_asignadas_alumnos, pais_universidad_acuerdo, nombre_idioma_nivel_movilidad}
+
+
+
+imparte(nom_centro:dom_nom_centro, nom_estudio:dom_nom_estudio)
+CP {nom_centro, nom_estudio}
+CAj {nom_centro} -> centro
+CAj{nom_estudio} -> estudios
+
+Plazas(nom_centro:dom_nom_centro, nom_estudio:dom_nom_estudio, curso_academico:dom_curso_academico, 
+plazas_ofertadas:dom_plazas_ofertadas, plazas_solicitadas:dom_plazas_solicitadas, plazas_matriculadas:dom_plazas_matriculadas, 
+indice_ocupacion:dom_incide_ocupacion)
+CP {nom_centro, nom_estudio, curso_academico}
+CAj{nom_centro} -> imparte
+CAj{nom_estudio} -> imparte
+VNN{plazas_matriculadas, plazas_ofertadas, plazas_solicitadas, indice_ocupacion}
+
+Resultados(nom_centro:dom_nom_centro, nom_estudio:dom_nom_estudio, curso_academico:dom_curso_academico, 
+alumnos_graduados:dom_alumnos_graduados, tasa_exito:dom_tasa_exito, 
+tasa_eficiencia:dom_tasa_eficiencia, tasa_graduados:dom_tasa_graduados, 
+tasa_abandono:dom_tasa_abandono, alumnos_matriculados:dom_alumnos_matriculados, 
+alumnos_nuevos:dom_alumnos_nuevos)
+CP {nom_centro, nom_estudio, curso_academico}
+CAj{nom_centro} -> imparte
+CAj{nom_estudio} -> imparte
+VNN{alumnos_graduados, tasa_abandono, tasa_eficiencia, tasa_exito, tasa_graduados, alumnos_matriculados, alumnos_nuevos}
+
+Notas(nom_centro:dom_nom_centro, nom_estudio:dom_nom_estudio, curso_academico:dom_curso_academico,
+nota_corte_julio:dom_nota_corte_julio, nota_corte_septiembre:dom_nota_corte_septiembre)
+CP {nom_centro, nom_estudio, curso_academico}
+CAj{nom_centro} -> imparte
+CAj{nom_estudio} -> imparte
+VNN{nota_corte_julio, nota_corte_septiembre}

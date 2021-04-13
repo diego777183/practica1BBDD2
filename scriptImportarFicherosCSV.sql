@@ -121,7 +121,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, centro, estudio, tipo_estudio, @alumnos_matriculados, @alumnos_nuevo_ingreso, @plazas_ofertadas, @alumnos_graduados, @alumnos_adapta_grado_matri, @alumnos_adapta_grado_matri_ni, @alumnos_adapta_grado_titulado, @alumnos_con_reconocimiento, @alumnos_movilidad_entrada, @alumnos_movilidad_salida, @creditos_matriculados, @creditos_reconocidos, @duracion_media_graduados, @tasa_exito, @tasa_rendimiento, @tasa_eficiencia, @tasa_abandono, @tasa_graduacion, @fecha_actualizacion)
-SET alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
+SET estudio = REGEXP_REPLACE(estudio, '[0-9]+-',''),
+    alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
     alumnos_nuevo_ingreso = IF(@alumnos_nuevo_ingreso = '', 0, @alumnos_nuevo_ingreso),
     plazas_ofertadas = IF(@plazas_ofertadas = '', 0, @plazas_ofertadas),
     alumnos_graduados = IF(@alumnos_graduados = '', 0, @alumnos_graduados),
@@ -147,7 +148,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, centro, estudio, tipo_estudio, @alumnos_matriculados, @alumnos_nuevo_ingreso, @plazas_ofertadas, @alumnos_graduados, @alumnos_adapta_grado_matri, @alumnos_adapta_grado_matri_ni, @alumnos_adapta_grado_titulado, @alumnos_con_reconocimiento, @alumnos_movilidad_entrada, @alumnos_movilidad_salida, @creditos_matriculados, @creditos_reconocidos, @duracion_media_graduados, @tasa_exito, @tasa_rendimiento, @tasa_eficiencia, @tasa_abandono, @tasa_graduacion, @fecha_actualizacion)
-SET alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
+SET estudio = REGEXP_REPLACE(estudio, '[0-9]+-',''),
+    alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
     alumnos_nuevo_ingreso = IF(@alumnos_nuevo_ingreso = '', 0, @alumnos_nuevo_ingreso),
     plazas_ofertadas = IF(@plazas_ofertadas = '', 0, @plazas_ofertadas),
     alumnos_graduados = IF(@alumnos_graduados = '', 0, @alumnos_graduados),
@@ -173,7 +175,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, centro, estudio, tipo_estudio, @alumnos_matriculados, @alumnos_nuevo_ingreso, @plazas_ofertadas, @alumnos_graduados, @alumnos_adapta_grado_matri, @alumnos_adapta_grado_matri_ni, @alumnos_adapta_grado_titulado, @alumnos_con_reconocimiento, @alumnos_movilidad_entrada, @alumnos_movilidad_salida, @creditos_matriculados, @creditos_reconocidos, @duracion_media_graduados, @tasa_exito, @tasa_rendimiento, @tasa_eficiencia, @tasa_abandono, @tasa_graduacion, @fecha_actualizacion)
-SET alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
+SET estudio = REGEXP_REPLACE(estudio, '[0-9]+-',''),
+    alumnos_matriculados = IF(@alumnos_matriculados = '', 0, @alumnos_matriculados),
     alumnos_nuevo_ingreso = IF(@alumnos_nuevo_ingreso = '', 0, @alumnos_nuevo_ingreso),
     plazas_ofertadas = IF(@plazas_ofertadas = '', 0, @plazas_ofertadas),
     alumnos_graduados = IF(@alumnos_graduados = '', 0, @alumnos_graduados),
@@ -213,7 +216,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, nombre_programa_movilidad, nombre_area_estudios_mov, centro, in_out, nombre_idioma_nivel_movilidad, pais_universidad_acuerdo, universidad_acuerdo, plazas_ofertadas_alumnos, plazas_asignadas_alumnos_out, @fecha_actualizacion)
-SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
+SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y'),
+    nombre_area_estudios_mov = REGEXP_REPLACE(nombre_area_estudios_mov, '[0-9]+[-]','');
 
 LOAD DATA INFILE '/var/lib/mysql-files/acuerdosMov18.csv'
 INTO TABLE acuerdosMovilidad
@@ -221,7 +225,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, nombre_programa_movilidad, nombre_area_estudios_mov, centro, in_out, nombre_idioma_nivel_movilidad, pais_universidad_acuerdo, universidad_acuerdo, plazas_ofertadas_alumnos, plazas_asignadas_alumnos_out, @fecha_actualizacion)
-SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
+SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y'),
+nombre_area_estudios_mov = REGEXP_REPLACE(nombre_area_estudios_mov, '[0-9]+[-]','');
 
 LOAD DATA INFILE '/var/lib/mysql-files/acuerdosMov17.csv'
 INTO TABLE acuerdosMovilidad
@@ -229,7 +234,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, nombre_programa_movilidad, nombre_area_estudios_mov, centro, in_out, nombre_idioma_nivel_movilidad, pais_universidad_acuerdo, universidad_acuerdo, plazas_ofertadas_alumnos, plazas_asignadas_alumnos_out, @fecha_actualizacion)
-SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
+SET fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y'),
+nombre_area_estudios_mov = REGEXP_REPLACE(nombre_area_estudios_mov, '[0-9]+[-]','');
 
 create table if not exists notasCorte(
     curso_academico int,
