@@ -21,6 +21,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, localidad, estudio, tipo_estudio, tipo_egreso, sexo, alumnos_graduados, alumnos_interrumpen_estudios, alumnos_interrumpen_est_ano1, alumnos_trasladan_otra_univ, @duracion_media_graduados, @tasa_eficiencia, @fecha_actualizacion)
 SET duracion_media_graduados = IF(@duracion_media_graduados = '', 0, @duracion_media_graduados),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     tasa_eficiencia = IF(@tasa_eficiencia = '', 0, @tasa_eficiencia),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
@@ -31,6 +32,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, localidad, estudio, tipo_estudio, tipo_egreso, sexo, alumnos_graduados, alumnos_interrumpen_estudios, alumnos_interrumpen_est_ano1, alumnos_trasladan_otra_univ, @duracion_media_graduados, @tasa_eficiencia, @fecha_actualizacion)
 SET duracion_media_graduados = IF(@duracion_media_graduados = '', 0, @duracion_media_graduados),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     tasa_eficiencia = IF(@tasa_eficiencia = '', 0, @tasa_eficiencia),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
@@ -41,10 +43,13 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, localidad, estudio, tipo_estudio, tipo_egreso, sexo, alumnos_graduados, alumnos_interrumpen_estudios, alumnos_interrumpen_est_ano1, alumnos_trasladan_otra_univ, @duracion_media_graduados, @tasa_eficiencia, @fecha_actualizacion)
 SET duracion_media_graduados = IF(@duracion_media_graduados = '', 0, @duracion_media_graduados),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     tasa_eficiencia = IF(@tasa_eficiencia = '', 0, @tasa_eficiencia),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
 
+delete from alumnosEgresados
+where tipo_estudio != 'Grado';
 
 create table if not exists plazasOfertadas(
     curso_academico int,
@@ -67,6 +72,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, tipo_centro, tipo_estudio, plazas_ofertadas, plazas_matriculadas, plazas_solicitadas, @indice_ocupacion, @fecha_actualizacion)
 SET indice_ocupacion = IF(@indice_ocupacion = '', 0, @indice_ocupacion),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
 
@@ -77,6 +83,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, tipo_centro, tipo_estudio, plazas_ofertadas, plazas_matriculadas, plazas_solicitadas, @indice_ocupacion, @fecha_actualizacion)
 SET indice_ocupacion = IF(@indice_ocupacion = '', 0, @indice_ocupacion),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
 
@@ -87,7 +94,12 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, tipo_centro, tipo_estudio, plazas_ofertadas, plazas_matriculadas, plazas_solicitadas, @indice_ocupacion, @fecha_actualizacion)
 SET indice_ocupacion = IF(@indice_ocupacion = '', 0, @indice_ocupacion),
+    estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
+
+delete from plazasOfertadas
+where tipo_estudio != 'Grado';
+
 
 create table if not exists resultadosTitulaciones(
     curso_academico int,
@@ -196,6 +208,10 @@ SET estudio = REGEXP_REPLACE(estudio, '[0-9]+-',''),
     tasa_graduacion = IF(@tasa_graduacion = '', 0, @tasa_graduacion),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
 
+
+delete from resultadosTitulaciones
+where tipo_estudio != 'Grado';
+
 create table if not exists acuerdosMovilidad(
     curso_academico int,
     nombre_programa_movilidad varchar(100),
@@ -254,7 +270,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, @prela_convo_nota_def, @nota_corte_definitiva_julio, @nota_corte_definitiva_septiembre, @fecha_actualizacion)
-SET prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
+SET estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
+    prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
     nota_corte_definitiva_julio = IF(@nota_corte_definitiva_julio = '', 0, @nota_corte_definitiva_julio),
     nota_corte_definitiva_septiembre = IF(@nota_corte_definitiva_septiembre = '', 0, @nota_corte_definitiva_septiembre),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
@@ -265,7 +282,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, @prela_convo_nota_def, @nota_corte_definitiva_julio, @nota_corte_definitiva_septiembre, @fecha_actualizacion)
-SET prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
+SET estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
+    prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
     nota_corte_definitiva_julio = IF(@nota_corte_definitiva_julio = '', 0, @nota_corte_definitiva_julio),
     nota_corte_definitiva_septiembre = IF(@nota_corte_definitiva_septiembre = '', 0, @nota_corte_definitiva_septiembre),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
@@ -276,7 +294,8 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (curso_academico, estudio, localidad, centro, @prela_convo_nota_def, @nota_corte_definitiva_julio, @nota_corte_definitiva_septiembre, @fecha_actualizacion)
-SET prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
+SET estudio = REGEXP_REPLACE(estudio, 'Grado: ',''),
+    prela_convo_nota_def = IF(@prela_convo_nota_def = '', 0, @prela_convo_nota_def),
     nota_corte_definitiva_julio = IF(@nota_corte_definitiva_julio = '', 0, @nota_corte_definitiva_julio),
     nota_corte_definitiva_septiembre = IF(@nota_corte_definitiva_septiembre = '', 0, @nota_corte_definitiva_septiembre),
     fecha_actualizacion = STR_TO_DATE(REPLACE(@fecha_actualizacion, "/", "-"), '%d-%m-%Y');
