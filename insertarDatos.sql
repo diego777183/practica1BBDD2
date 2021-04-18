@@ -39,3 +39,11 @@ where i.nom_estudio = p.estudio and i.nom_centro = p.centro and i.nom_estudio = 
 
 
 
+/*Consulta e, falta sacar los dos primeros de cada localidad*/
+select l.nom_localidad, cen.nom_centro, c.nom_estudio, max(c.indice_ocupacion)
+from cursos c, centro cen, localidad l
+where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.curso_academico = 2018
+group by l.nom_localidad, cen.nom_centro, c.nom_estudio
+order by l.nom_localidad, max(c.indice_ocupacion) desc
+
+
