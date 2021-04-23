@@ -57,3 +57,12 @@ create table if not exists cursos(
     foreign key (nom_centro) references imparte(nom_centro),
     foreign key (nom_estudio) references imparte(nom_estudio)
 );
+
+
+create table if not exists datosTrigger(
+    id_operacion int primary key not null AUTO_INCREMENT,
+    tipo_operacion varchar(50) not null,
+    usuario_operacion varchar(100) not null,
+    fecha date not null,
+    clave_primaria_afectada varchar(200) not null
+);

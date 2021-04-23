@@ -47,3 +47,35 @@ group by l.nom_localidad, cen.nom_centro, c.nom_estudio
 order by l.nom_localidad, max(c.indice_ocupacion) desc
 
 
+(select l.nom_localidad, c.nom_estudio, max(c.indice_ocupacion)
+from cursos c, centro cen, localidad l
+where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.curso_academico = 2018 and
+l.nom_localidad = 'Almunia de Doña Godina (La)'
+group by l.nom_localidad, cen.nom_centro, c.nom_estudio
+order by l.nom_localidad, max(c.indice_ocupacion) desc limit 2)
+
+union
+(select l.nom_localidad, c.nom_estudio, max(c.indice_ocupacion)
+from cursos c, centro cen, localidad l
+where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.curso_academico = 2018 and
+l.nom_localidad = 'Huesca'
+group by l.nom_localidad, cen.nom_centro, c.nom_estudio
+order by l.nom_localidad, max(c.indice_ocupacion) desc limit 2)
+
+union 
+
+(select l.nom_localidad, c.nom_estudio, max(c.indice_ocupacion)
+from cursos c, centro cen, localidad l
+where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.curso_academico = 2018 and
+l.nom_localidad = 'Teruel'
+group by l.nom_localidad, cen.nom_centro, c.nom_estudio
+order by l.nom_localidad, max(c.indice_ocupacion) desc limit 2)
+
+union
+
+(select l.nom_localidad, c.nom_estudio, max(c.indice_ocupacion)
+from cursos c, centro cen, localidad l
+where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.curso_academico = 2018 and
+l.nom_localidad = 'Zaragoza'
+group by l.nom_localidad, cen.nom_centro, c.nom_estudio
+order by l.nom_localidad, max(c.indice_ocupacion) desc limit 2)
