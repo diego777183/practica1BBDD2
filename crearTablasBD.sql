@@ -16,7 +16,6 @@ create table if not exists centro(
     foreign key (id_localidad) references localidad(id_localidad)
 );
 
-
 create table if not exists tipo_estudio(
     id_tipo_estudio int primary key not null AUTO_INCREMENT,
     tipo_estudio varchar(200) not null
@@ -58,6 +57,44 @@ create table if not exists cursos(
     foreign key (nom_estudio) references imparte(nom_estudio)
 );
 
+create table if not exists idioma(
+    id_idioma int primary key  AUTO_INCREMENT,
+    nom_idioma varchar(200) not null
+);
+
+create table if not exists pais(
+    id_pais int primary key not null AUTO_INCREMENT,
+    nom_pais varchar(200) not null
+);
+
+create table if not exists universidadMovilidad(
+    id_universidad int primary key not null AUTO_INCREMENT,
+    nom_universidad varchar(200) not null,
+    id_pais int not null,
+    foreign key (id_pais) references pais(id_pais)
+);
+
+create table if not exists areaEstudiosMovilidad(
+    id_area_estudios int primary key not null AUTO_INCREMENT,
+    nom_area_estudios varchar(200) not null
+);
+
+create table if not exists tieneConvenioMovilidad(
+    nom_centro varchar(200) not null,
+    id_universidad int not null,
+    id_area_estudios int not null,
+    plazas_asignadas int not null,
+    plazasOfertadas int not null,
+    in_out enum('IN', 'OUT') not null,
+    anyo int not null,
+    programa enum('ERASMUS', 'SICUE'),
+    id_idioma int not null,
+    primary key(nom_centro, id_universidad, id_area_estudios, in_out, anyo, programa, id_idioma),
+    foreign key (nom_centro) references centro(nom_centro),
+    foreign key (id_universidad) references universidadMovilidad(id_universidad),
+    foreign key (id_area_estudios) references areaEstudiosMovilidad(id_area_estudios),
+    foreign key (id_idioma) references idioma(id_idioma)
+);
 
 create table if not exists datosTrigger(
     id_operacion int primary key not null AUTO_INCREMENT,

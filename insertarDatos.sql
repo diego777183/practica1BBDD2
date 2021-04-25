@@ -24,8 +24,6 @@ select distinct (p.centro), p.estudio
 from plazasOfertadas p, estudios e, centro c
 where c.nom_centro = p.centro and e.nom_estudio = p.estudio
 
-
-
 insert into cursos(nom_centro, nom_estudio, curso_academico, plazas_matriculadas, plazas_ofertadas, plazas_solicitadas, indice_ocupacion, alumnos_graduados, tasa_abandono, tasa_eficiencia, tasa_exito, tasa_graduados, alumnos_matriculados, alumnos_nuevos, nota_corte_julio, nota_corte_septiembre)
 select i.nom_centro, i.nom_estudio, p.curso_academico, p.plazas_matriculadas, p.plazas_ofertadas, p.plazas_solicitadas, p.indice_ocupacion, r.alumnos_graduados, r.tasa_abandono, r.tasa_eficiencia, r.tasa_exito, r.tasa_graduacion, r.alumnos_matriculados, r.alumnos_nuevo_ingreso, n.nota_corte_definitiva_julio, n.nota_corte_definitiva_septiembre
 from plazasOfertadas p, imparte i, notasCorte n, resultadosTitulaciones r
@@ -33,6 +31,31 @@ where i.nom_estudio = p.estudio and i.nom_centro = p.centro and i.nom_estudio = 
       i.nom_centro = n.centro and i.nom_estudio = r.estudio and i.nom_centro = r.centro and 
       p.curso_academico = n.curso_academico and p.curso_academico = r.curso_academico and 
       n.curso_academico = r.curso_academico
+
+insert into idioma(nom_idioma)
+select distinct a.nombre_idioma_nivel_movilidad
+from acuerdosMovilidad a
+
+insert into areaEstudiosMovilidad(nom_area_estudios)
+select distinct a.nombre_area_estudios_mov
+from acuerdosMovilidad a
+
+insert into pais(nom_pais)
+select distinct a.pais_universidad_acuerdo
+from acuerdosMovilidad a
+
+insert into universidadMovilidad(nom_universidad, id_pais)
+select distinct a.universidad_acuerdo, p.id_pais
+from acuerdosMovilidad a, pais p
+where p.nom_pais = a.pais_universidad_acuerdo
+
+
+
+
+
+
+
+
 
 
 
