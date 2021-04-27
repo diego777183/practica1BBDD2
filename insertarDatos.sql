@@ -102,3 +102,34 @@ where cen.nom_centro = c.nom_centro and l.id_localidad = cen.id_localidad and c.
 l.nom_localidad = 'Zaragoza'
 group by l.nom_localidad, cen.nom_centro, c.nom_estudio
 order by l.nom_localidad, max(c.indice_ocupacion) desc limit 2)
+
+
+select distinct plazas.nom_universidad, SUM(plazas.plazas_asignadas)
+from(
+select  u.nom_universidad, t.plazas_asignadas
+from tieneConvenioMovilidad t, universidadMovilidad u
+where anyo = 2019 and u.id_universidad = t.id_universidad) as plazas
+group by plazas.nom_universidad
+order by SUM(plazas.plazas_asignadas) desc limit 0,1
+
+
+
+
+
+insert into tieneConvenioMovilidad(nom_centro, id_universidad, id_area_estudios, plazas_asignadas, plazas_ofertadas, in_out, anyo, programa, id_idioma)
+select distinct (c.nom_centro), u.id_universidad, a.id_area_estudios, ac.plazas_asignadas_alumnos_out, ac.plazas_ofertadas_alumnos, ac.in_out, ac.curso_academico, ac.nombre_programa_movilidad, i.id_idioma
+from acuerdosMovilidad ac, areaEstudiosMovilidad a, centro c, universidadMovilidad u, idioma i
+where c.nom_centro = ac.centro and ac.universidad_acuerdo = u.nom_universidad and a.nom_area_estudios = ac.nombre_area_estudios_mov and ac.nombre_idioma_nivel_movilidad = i.nom_idioma
+
+
+
+
+
+
+
+
+
+select u.nom_universidad, max(t.plazas_asignadas)
+from tieneConvenioMovilidad t, universidadMovilidad u
+where t.id_universidad = u.id_universidad and t.anyo = 2019 
+group by u.nom_universidad limit 1
