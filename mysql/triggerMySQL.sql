@@ -1,7 +1,5 @@
-/*Impide borrar en una tabla*/
-create trigger evitarBorrar
-before delete on pais
-for each row
-begin
-    signal sqlstate '45000' set message_text = 'No puedes borrar en esta tabla';
-end;
+CREATE TRIGGER evitaBorrar 
+    BEFORE DELETE ON pais 
+    FOR EACH ROW BEGIN 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No puedes borrar en esta tabla';  
+END;

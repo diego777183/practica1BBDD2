@@ -1,3 +1,4 @@
+
 create table if not exists alumnosEgresados(
     curso_academico int,
     localidad varchar(100),
@@ -79,7 +80,7 @@ create table if not exists notasCorte(
     fecha_actualizacion date
 );
 
-CREATE TABLE tipo_centro (
+create table if not exists tipo_centro (
      id_tipo_centro int primary key not null AUTO_INCREMENT,
      tipo_centro varchar(200) not null
 );
@@ -177,10 +178,3 @@ create table if not exists tieneConvenioMovilidad(
     foreign key (id_idioma) references idioma(id_idioma)
 );
 
-create table if not exists datosTrigger(
-    id_operacion int primary key not null AUTO_INCREMENT,
-    tipo_operacion varchar(50) not null,
-    usuario_operacion varchar(100) not null,
-    fecha date not null,
-    clave_primaria_afectada varchar(200) not null
-);
