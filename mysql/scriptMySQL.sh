@@ -1,5 +1,6 @@
 #con este script importamos todos los ficheros a la carpeta de mysql
-./scriptImportarFicheros.sh
+cd /home/alumno/practica1BBDD2/ficheros/
+./scriptImportar.sh
 
 #Con este comando creamos la base de datos y todas las tablas dentro de la base de datos
 mysql -u diego -pdiego practica1 < crearTablasBD.sql
