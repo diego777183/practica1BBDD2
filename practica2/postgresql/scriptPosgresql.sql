@@ -1,3 +1,17 @@
+DROP TABLE IF EXISTS imparte;
+DROP TABLE IF EXISTS participa;
+DROP TABLE IF EXISTS pdi;
+DROP TABLE IF EXISTS asignatura;
+DROP TABLE IF EXISTS proyectoInvestigador;
+DROP TABLE IF EXISTS docente;
+DROP TABLE IF EXISTS investigador;
+DROP TABLE IF EXISTS empleado;
+
+DROP TABLE IF EXISTS asignatura;
+DROP TABLE IF EXISTS tabla_carga;
+
+
+
 CREATE TABLE IF NOT EXISTS asignatura(
     codAsig integer primary key not null,
     nombreAsignatura text not null
@@ -43,4 +57,12 @@ CREATE TABLE IF NOT EXISTS participa(
     foreign key(dniInvestigador) references investigador(dni)
 );
 
+CREATE TABLE IF NOT EXISTS pdi(
+    primary key(dni)
+)INHERITS(empleado, investigador);
 
+CREATE TABLE IF NOT EXISTS tabla_carga(
+    dni text not null,
+    carga integer not null,
+    PRIMARY KEY(dni)
+);

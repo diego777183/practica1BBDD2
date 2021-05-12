@@ -53,3 +53,4 @@ FROM asignatura a, docente d;
 INSERT INTO participa(refproyecto, dniinvestigador)
 SELECT distinct p.refproyecto, i.dni 
 FROM proyectoinvestigador p, investigador i;
+
